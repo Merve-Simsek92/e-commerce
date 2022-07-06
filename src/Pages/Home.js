@@ -1,21 +1,25 @@
 import React,{useState} from "react";
 import "./Home.css";
 import Data from "../helpers/Data";
+import { useBasket } from "../context/BasketContext";
 
 // import  {useNavigate} from "react-router-dom"
 // import { SendExclamation } from "react-bootstrap-icons";
 
 const Home = () => {
+  const {addToBasket,items}=useBasket();
+  const findBasketItem=({item})=>{
+ const  findItem=items.find((a)=>a.id === item.id )
+ setFindItem(findItem)
+}
   // const navigate=useNavigate()
-  const [shopCardArray,setShopCardArray]=useState(null);
+  const [findItem,setFindItem]=useState([])
   const [search, setSearch] = useState("");
   const [data, setData]=useState(Data);
   const [inputVal, setInputVal]=useState(new Array(20).fill(0));
   const [isChecked, setIsChecked] = useState(new Array(20).fill(false))
   
-  const addShoppingCard =()=>{
-    setShopCardArray()
-  } 
+ 
   
   const handleInpChange = (idx, itm)=>{
     const updatedCheckedState = isChecked.map((item, index) =>
@@ -309,8 +313,11 @@ const Home = () => {
               {" "}
               <p>{item.detay}</p>
               <h3>{item.fiyat} TL</h3>
-              <button onClick={addShoppingCard} type="button" className="btn btn-primary ml-5">
-                Sepete Ekle
+              <button onClick={()=>addToBasket({item},findBasketItem({item}))}  type="button" className="btn btn-primary ml-5">
+           
+                 {
+                   findItem ? "Sepetten Kaldır" : "    Sepete Ekle "
+                } 
               </button>
             </div>
           </div>)

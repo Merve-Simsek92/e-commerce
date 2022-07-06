@@ -5,8 +5,10 @@ import { AuthContext } from "../context/AuthContext";
 import {ReactComponent as PersonIcon}  from "../helpers/person.svg"
 import {ReactComponent as CartIcon}  from "../helpers/cart.svg"
 import { Dropdown } from 'react-bootstrap'
+import { useBasket } from "../context/BasketContext";
 const Navbar = () => {
-    const navigate=useNavigate()
+    const navigate=useNavigate();
+   const {items} =useBasket();
     
  const { currentUser } = useContext(AuthContext);
 // const currentUser=false
@@ -22,7 +24,11 @@ const Navbar = () => {
             <h5 className="mb-0 text-capitalize">     {currentUser?.displayName} </h5>
          {currentUser ?  (<div className="d-flex text-white align-items-center">
           <h5 className="m-3 text-capitalize ">
-            <CartIcon/>
+          {items.length > 0 && (
+            <Link to="/shoppingCard">
+              <button><CartIcon/> ({items.length})</button>
+            </Link>
+           ) }
           </h5>
             <h5 className="mb-0 text-capitalize">
             
