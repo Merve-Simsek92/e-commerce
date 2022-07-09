@@ -5,6 +5,7 @@ const BasketProvider =({children})=>{
     const [items,setItems]=useState([]);
     const addToBasket=(data)=>{
         setItems((prev)=>[...prev,data])
+        console.log(data)
     }
     const values= {
         items,setItems,

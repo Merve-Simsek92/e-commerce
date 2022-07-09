@@ -1,21 +1,44 @@
 import React,{useState} from "react";
 import "./Home.css";
 import Data from "../helpers/Data";
+
 import { useBasket } from "../context/BasketContext";
 
 // import  {useNavigate} from "react-router-dom"
 // import { SendExclamation } from "react-bootstrap-icons";
 
 const Home = () => {
-  const {addToBasket,items}=useBasket();
-  const findBasketItem=({item})=>{
- const  findItem=items.find((a)=>a.id === item.id )
- setFindItem(findItem)
+
+const [state,setState] = useState({
+  data: Data,
+  cart:[]
+})
+
+// const addToCart=(item)=>setState({
+//  ...state,
+//   cart : state.cart.find(c=>c.id === item.id)
+//   ? state.cart.map(c=> c.id === item.id ? {...c ,count : c.count + 1} : c)
+//   : [...state.cart , {...item,count:1}]
+// })
+
+// const addToCart=({item})=>{
+
+//   console.log(state)
+// console.log(item.id)
+// }
+
+
+  // const [data, setData]=useState(Data);
+ const {addToBasket}=useBasket();
+ const findBasketItem=({item})=>{
+console.log(item)
+ const  findItem=item.map()
+// //  setFindItem(findItem)
 }
-  // const navigate=useNavigate()
+// //   // const navigate=useNavigate()
   const [findItem,setFindItem]=useState([])
   const [search, setSearch] = useState("");
-  const [data, setData]=useState(Data);
+
   const [inputVal, setInputVal]=useState(new Array(20).fill(0));
   const [isChecked, setIsChecked] = useState(new Array(20).fill(false))
   
@@ -55,7 +78,7 @@ const Home = () => {
            })
       };
       console.log(newData);
-      setData(newData);  
+      setState({data : newData});  
       // console.log(data);  
    }
   
@@ -69,7 +92,7 @@ const Home = () => {
             item.ürün.toLowerCase().includes(search.toLowerCase())
           )
       });
-      setData(newData); 
+      setState({data : newData}); 
       // console.log(search);    
       // console.log(data);
     }
@@ -301,7 +324,7 @@ const Home = () => {
         </div>
 
         <div className="d-flex flex-wrap">
-          {data.map((item)=>{
+          {state.data.map((item)=>{
             return (
              <div className="divImg" key={item.id}>
               <img
@@ -313,11 +336,12 @@ const Home = () => {
               {" "}
               <p>{item.detay}</p>
               <h3>{item.fiyat} TL</h3>
-              <button onClick={()=>addToBasket({item},findBasketItem({item}))}  type="button" className="btn btn-primary ml-5">
-           
-                 {
-                   findItem ? "Sepetten Kaldır" : "    Sepete Ekle "
-                } 
+              <button onClick={()=>addToBasket({item})}>
+              {/* <button onClick={()=>addToBasket({item})}  type="button" className="btn btn-primary ml-5"> */}
+              Sepete Ekle 
+                 {/* {
+                   findItem ? "Sepetten Kaldır" : 
+                }  */}
               </button>
             </div>
           </div>)
