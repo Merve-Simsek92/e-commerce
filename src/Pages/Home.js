@@ -2,7 +2,8 @@ import React,{useState} from "react";
 import "./Home.css";
 import Data from "../helpers/Data";
 
-import { useBasket } from "../context/BasketContext";
+
+import Cart from "../Components/Cart";
 
 // import  {useNavigate} from "react-router-dom"
 // import { SendExclamation } from "react-bootstrap-icons";
@@ -13,6 +14,7 @@ const [state,setState] = useState({
   data: Data,
   cart:[]
 })
+
 
 // const addToCart=(item)=>setState({
 //  ...state,
@@ -29,14 +31,15 @@ const [state,setState] = useState({
 
 
   // const [data, setData]=useState(Data);
- const {addToBasket}=useBasket();
- const findBasketItem=({item})=>{
-console.log(item)
- const  findItem=item.map()
+
+
+//  const findBasketItem=({item})=>{
+// console.log(item)
+//  const  findItem=item.map()
 // //  setFindItem(findItem)
-}
+//}
 // //   // const navigate=useNavigate()
-  const [findItem,setFindItem]=useState([])
+  // const [findItem,setFindItem]=useState([])
   const [search, setSearch] = useState("");
 
   const [inputVal, setInputVal]=useState(new Array(20).fill(0));
@@ -326,25 +329,8 @@ console.log(item)
         <div className="d-flex flex-wrap">
           {state.data.map((item)=>{
             return (
-             <div className="divImg" key={item.id}>
-              <img
-                className="img"
-                src={item?.resim}
-                alt="myimage"
-            />
-            <div className="paragraf">
-              {" "}
-              <p>{item.detay}</p>
-              <h3>{item.fiyat} TL</h3>
-              <button onClick={()=>addToBasket({item})}>
-              {/* <button onClick={()=>addToBasket({item})}  type="button" className="btn btn-primary ml-5"> */}
-              Sepete Ekle 
-                 {/* {
-                   findItem ? "Sepetten Kaldır" : 
-                }  */}
-              </button>
-            </div>
-          </div>)
+              <Cart item={item}/>
+           )
 
           })}
         

@@ -26,7 +26,7 @@ const Navbar = () => {
           <h5 className="m-3 text-capitalize ">
           {items.length > 0 && (
             <Link to="/shoppingCard">
-              <button><CartIcon/> ({items.length})</button>
+              <button onClick={()=>navigate("/shoppingCart")}><CartIcon /> ({items.length})</button>
             </Link>
            ) }
           </h5>
